@@ -7,26 +7,26 @@
 <meta name="description" content="Brayan Elian Castiblanco — physicist working on ultrafast dynamics of quantum materials and quantum many-body theory. Aarhus, Denmark.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   TOKENS — one grey family, one muted navy for anything clickable
+   TOKENS — warm neutral paper + one confident accent (deep teal)
    ========================================================= */
 :root{
-  --paper:#F4F5F7;
+  --paper:#F6F3EE;
   --paper-2:#FFFFFF;
-  --paper-3:#EAECEF;
-  --ink:#15191E;
-  --ink-2:#4B535E;
-  --ink-3:#818A96;
-  --rule:#DCDFE4;
-  --rule-soft:#E7E9EC;
-  --link:#2F4A6B;
-  --link-hi:#16304C;
+  --paper-3:#EFEAE1;
+  --ink:#201D18;
+  --ink-2:#54504A;
+  --ink-3:#8B8576;
+  --rule:#DEDACE;
+  --rule-soft:#EAE6DC;
+  --accent:#0F5C52;
+  --accent-2:#0B443D;
+  --accent-soft:#E4EEEA;
   --serif:"Source Serif 4",Georgia,serif;
   --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
-  --measure:68ch;
-  --sidebar:19rem;
+  --measure:66ch;
   color-scheme:light;
   box-sizing:border-box;
 }
@@ -34,198 +34,250 @@
 
 html{
   scroll-behavior:smooth;
-  scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5rem);
+  scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem);
 }
 body{
   margin:0;
   font-family:var(--sans);
   font-weight:400;
   font-size:clamp(15px,.35vw + 14.2px,16.5px);
-  line-height:1.68;
+  line-height:1.7;
   color:var(--ink);
-  /* monochrome background: a single hue, shifted very slightly top to bottom */
-  background:linear-gradient(180deg,#F7F8F9 0%,var(--paper) 42%,#EFF1F3 100%) fixed;
+  background:linear-gradient(180deg,#FAF8F3 0%,var(--paper) 45%,#F0ECE3 100%);
   -webkit-font-smoothing:antialiased;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
 
-a{color:var(--link);text-underline-offset:.16em;text-decoration-thickness:.5px}
-a:hover{color:var(--link-hi)}
-a:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:3px}
-p{max-width:var(--measure)}
+a{color:var(--accent);text-underline-offset:.16em;text-decoration-thickness:.5px}
+a:hover{color:var(--accent-2)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
 img{max-width:100%;height:auto;display:block}
+
+/* justify body copy; keep the final line of a paragraph left-set so it never stretches oddly */
+p,li,dd{text-align:justify;text-align-last:left;hyphens:auto;-webkit-hyphens:auto}
 
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:1rem;top:1rem;z-index:99;background:var(--paper-2);padding:.6rem 1rem;border:1px solid var(--rule);border-radius:6px}
 
 /* =========================================================
-   LAYOUT — sticky identity rail on the left, content on the right
+   TOP NAV — sections live here, bold and a size up from body copy
    ========================================================= */
-.layout{
-  width:min(100% - 2.5rem,78rem);
-  margin-inline:auto;
-  display:grid;
-  grid-template-columns:1fr;
-  gap:2.5rem;
-  padding-block:2.5rem 0;
+.topbar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:rgba(250,248,243,.86);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
 }
-@media(min-width:900px){
-  .layout{
-    grid-template-columns:var(--sidebar) minmax(0,1fr);
-    gap:4.5rem;
-    padding-block:4rem 0;
-  }
+.bar{
+  width:min(100% - 2.5rem,62rem);margin-inline:auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;min-height:3.9rem;flex-wrap:wrap;padding-block:.4rem;
 }
-
-/* ---------- sidebar ---------- */
-.rail{align-self:start}
-@media(min-width:900px){
-  .rail{position:sticky;top:3rem;max-height:calc(100vh - 5rem);overflow-y:auto}
+.brand{
+  font-family:var(--serif);font-weight:600;font-size:1.02rem;
+  color:var(--ink);text-decoration:none;white-space:nowrap;
 }
-.portrait{
-  width:8.5rem;height:8.5rem;border-radius:50%;object-fit:cover;
-  border:1px solid var(--rule);background:var(--paper-3);margin-bottom:1.4rem;
-}
-.rail h1{
-  font-family:var(--serif);font-weight:400;
-  font-size:1.85rem;line-height:1.15;letter-spacing:-.015em;
-  margin:0 0 .45rem;
-}
-.rail .role{color:var(--ink-2);font-size:.95rem;line-height:1.5;margin:0 0 1.5rem;max-width:22ch}
-.rail nav{
-  display:flex;flex-direction:column;gap:.1rem;
-  padding-block:1.2rem;margin-bottom:1.2rem;
-  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
-}
-.rail nav a{
-  text-decoration:none;color:var(--ink-2);font-size:.95rem;
-  padding:.34rem 0 .34rem .8rem;
-  border-left:2px solid transparent;
+.brand:hover{color:var(--accent)}
+.topbar nav{display:flex;gap:1.6rem;flex-wrap:wrap}
+.topbar nav a{
+  font-family:var(--sans);font-weight:700;font-size:1.03rem;letter-spacing:.005em;
+  color:var(--ink-2);text-decoration:none;
+  padding-bottom:.3rem;border-bottom:2px solid transparent;
   transition:color .16s,border-color .16s;
 }
-.rail nav a:hover{color:var(--ink)}
-.rail nav a[aria-current="true"]{color:var(--ink);border-left-color:var(--ink);font-weight:500}
-.rail .contact{font-size:.88rem;color:var(--ink-3);line-height:1.75;margin:0 0 1.4rem}
-.rail .contact a{display:block;word-break:break-word}
+.topbar nav a:hover{color:var(--ink)}
+.topbar nav a[aria-current="true"]{color:var(--accent);border-bottom-color:var(--accent)}
 
-.btn{
-  display:inline-block;text-decoration:none;text-align:center;
-  font-size:.9rem;font-weight:500;
-  padding:.62rem 1.1rem;border-radius:7px;
-  background:var(--ink);color:var(--paper-2);
-  border:1px solid var(--ink);
-  transition:background .16s,border-color .16s;
-}
-.btn:hover{background:#2C333C;border-color:#2C333C;color:var(--paper-2)}
-.btn.ghost{background:transparent;color:var(--ink-2);border-color:var(--rule)}
-.btn.ghost:hover{background:var(--paper-2);color:var(--ink);border-color:var(--ink-3)}
-
-/* ---------- main column ---------- */
-section{padding-block:0 clamp(3.5rem,7vw,5.5rem)}
-section + section{padding-top:clamp(3rem,6vw,4.5rem);border-top:1px solid var(--rule)}
-.head{margin:0 0 2.2rem}
+/* =========================================================
+   SHELL
+   ========================================================= */
+.wrap{width:min(100% - 2.5rem,62rem);margin-inline:auto}
+section{padding-block:clamp(3rem,7vw,4.5rem)}
+section:first-of-type{padding-top:clamp(2.6rem,6vw,4rem)}
+section + section{border-top:1px solid var(--rule)}
+.head{margin:0 0 2.1rem;position:relative}
 .head h2{
   font-family:var(--serif);font-weight:600;
   font-size:clamp(1.35rem,2.6vw,1.65rem);
   letter-spacing:-.01em;margin:0;line-height:1.2;
+  padding-bottom:.65rem;position:relative;
 }
-.head p{color:var(--ink-2);margin:.55rem 0 0;font-size:.97rem}
-.lede{font-size:1.06rem;line-height:1.72;color:var(--ink-2)}
+.head h2::after{
+  content:"";position:absolute;left:0;bottom:0;width:2.6rem;height:3px;
+  background:var(--accent);border-radius:2px;
+}
+.head p{color:var(--ink-2);margin:.7rem 0 0;font-size:.97rem;max-width:var(--measure)}
+.lede{font-size:1.06rem;line-height:1.75;color:var(--ink-2);max-width:var(--measure)}
 .lede strong{color:var(--ink);font-weight:600}
+.greet{
+  font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);
+  font-size:clamp(1.2rem,3vw,1.45rem);margin-bottom:.4rem;
+}
 
 /* =========================================================
-   RESEARCH — one block per position, with figures and links
+   HERO / HOME
    ========================================================= */
-.project{padding-bottom:3.2rem;margin-bottom:3.2rem;border-bottom:1px solid var(--rule-soft)}
-.project:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
-.project > header{margin-bottom:1.1rem}
-.when{
-  font-size:.82rem;color:var(--ink-3);
-  font-variant-numeric:tabular-nums;letter-spacing:.015em;margin:0 0 .3rem;
+.hero-id{
+  display:flex;gap:1.7rem;flex-wrap:wrap;align-items:flex-start;
+  margin-bottom:2.3rem;
 }
-.project h3{
+.profile{
+  width:clamp(6.5rem,14vw,8.7rem);height:clamp(6.5rem,14vw,8.7rem);
+  border-radius:50%;object-fit:cover;
+  border:1px solid var(--rule);background:var(--paper-3);flex-shrink:0;
+}
+.id-text h1{
   font-family:var(--serif);font-weight:600;
-  font-size:1.22rem;line-height:1.32;letter-spacing:-.008em;margin:0 0 .35rem;
+  font-size:clamp(1.75rem,4.4vw,2.5rem);
+  letter-spacing:-.015em;line-height:1.12;margin:0 0 .4rem;
 }
-.where{color:var(--ink-2);font-size:.93rem;margin:0;line-height:1.5}
-.where .sup{color:var(--ink-3)}
-.project ul{margin:0 0 1.2rem;padding-left:1.1rem;color:var(--ink-2);max-width:var(--measure)}
-.project li{margin-bottom:.45rem}
-.project li::marker{color:var(--ink-3)}
+.id-text .role{color:var(--ink-2);font-size:.98rem;margin:0 0 .2rem;max-width:38ch}
+.id-text .place{color:var(--ink-3);font-size:.88rem;margin:0 0 1rem}
 
-.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.2rem;padding:0;list-style:none}
-.tags li{
-  font-size:.78rem;color:var(--ink-2);
-  padding:.2rem .6rem;border:1px solid var(--rule);border-radius:4px;
-  background:var(--paper-2);margin:0;
-}
-
-.links{display:flex;flex-wrap:wrap;gap:.5rem;margin:0}
+.links{display:flex;flex-wrap:wrap;gap:.55rem;margin:0}
 .links a{
   font-size:.86rem;text-decoration:none;color:var(--ink-2);
-  padding:.36rem .8rem;border:1px solid var(--rule);border-radius:6px;
+  padding:.4rem .85rem;border:1px solid var(--rule);border-radius:6px;
   background:var(--paper-2);
   transition:border-color .16s,color .16s;
 }
 .links a:hover{color:var(--ink);border-color:var(--ink-3)}
-
-.figs{display:grid;gap:1.1rem;margin:0 0 1.4rem;grid-template-columns:1fr}
-@media(min-width:620px){
-  .figs.two{grid-template-columns:1fr 1fr}
-  .figs.three{grid-template-columns:repeat(3,1fr)}
+.btn{
+  display:inline-block;text-decoration:none;text-align:center;
+  font-size:.86rem;font-weight:600;
+  padding:.4rem .95rem;border-radius:6px;
+  background:var(--accent);color:#fff;border:1px solid var(--accent);
+  transition:background .16s,border-color .16s;
 }
-figure{margin:0}
-figure img{width:100%;border:1px solid var(--rule);border-radius:8px;background:var(--paper-2)}
-figcaption{font-size:.83rem;color:var(--ink-3);line-height:1.55;margin-top:.5rem}
+.btn:hover{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--rule)}
+.btn.ghost:hover{background:var(--accent-soft);border-color:var(--accent)}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.7rem;max-width:none}
 
 /* =========================================================
-   CV
+   PANELS (CV)
    ========================================================= */
-.panels{display:grid;gap:1.1rem;grid-template-columns:1fr}
-@media(min-width:960px){.panels.split{grid-template-columns:1.25fr 1fr}}
 .panel{
   background:var(--paper-2);
   border:1px solid var(--rule);
   border-radius:10px;
-  padding:clamp(1.2rem,2.4vw,1.7rem);
+  padding:clamp(1.2rem,2.4vw,1.8rem);
 }
 .panel + .panel{margin-top:1.1rem}
 .panel h3{
-  font-family:var(--serif);font-weight:600;font-size:1.02rem;
-  margin:0 0 1.1rem;padding-bottom:.6rem;border-bottom:1px solid var(--rule-soft);
+  font-family:var(--serif);font-weight:600;font-size:1.05rem;
+  margin:0 0 1.15rem;padding-bottom:.6rem;border-bottom:1px solid var(--rule-soft);
 }
+.panel.full{margin-bottom:1.1rem}
+
+.panels{display:grid;gap:1.1rem;grid-template-columns:1fr}
+@media(min-width:900px){.panels.split{grid-template-columns:1fr 1fr}}
+
 .deg{margin:0 0 1.3rem}
 .deg:last-child{margin-bottom:0}
 .deg b{font-weight:600;display:block;line-height:1.4;font-size:.98rem}
 .deg em{font-style:normal;color:var(--ink-2);font-size:.9rem;display:block;margin-top:.1rem}
 .deg small{display:block;color:var(--ink-3);font-size:.82rem;margin-top:.22rem;font-variant-numeric:tabular-nums}
 .thesis{
-  color:var(--ink-2);font-size:.89rem;line-height:1.55;
+  color:var(--ink-2);font-size:.89rem;line-height:1.6;
   margin:.55rem 0 0;padding-left:.85rem;border-left:2px solid var(--rule);max-width:none;
 }
 .thesis a{font-size:.85rem}
+
 .rows{list-style:none;margin:0;padding:0;font-size:.92rem;color:var(--ink-2)}
-.rows > li{padding:.62rem 0;border-bottom:1px solid var(--rule-soft);line-height:1.55}
+.rows > li{padding:.62rem 0;border-bottom:1px solid var(--rule-soft);line-height:1.6}
 .rows > li:first-child{padding-top:0}
 .rows > li:last-child{border-bottom:0;padding-bottom:0}
 .rows b{font-weight:600;color:var(--ink)}
 .rows .yr{color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:.86rem}
+
 .kv{margin:0;display:grid;gap:.6rem}
-.kv > div{display:flex;gap:.9rem;font-size:.92rem;line-height:1.55}
+.kv > div{display:flex;gap:.9rem;font-size:.92rem;line-height:1.6}
 .kv dt{color:var(--ink-3);min-width:6.4rem;flex-shrink:0}
 .kv dd{margin:0;color:var(--ink-2)}
 .note{font-size:.9rem;color:var(--ink-3);margin:1.2rem 0 0}
 
+/* research experience, nested in the CV panel — reuses .project below, tuned smaller */
+.panel .project{padding-bottom:1.9rem;margin-bottom:1.9rem}
+.panel .project:last-child{padding-bottom:0;margin-bottom:0}
+.panel .project h3{
+  border:0;padding:0;margin:0 0 .3rem;font-size:1.05rem;
+}
+.panel .project .when{font-size:.78rem}
+.panel .project .where{font-size:.89rem}
+
+.when{
+  font-size:.82rem;color:var(--accent);font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:.015em;margin:0 0 .3rem;
+}
+.project{padding-bottom:2.4rem;margin-bottom:2.4rem;border-bottom:1px solid var(--rule-soft)}
+.project:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+.project > header{margin-bottom:1rem}
+.project h3{
+  font-family:var(--serif);font-weight:600;
+  font-size:1.18rem;line-height:1.32;letter-spacing:-.008em;margin:0 0 .35rem;
+}
+.where{color:var(--ink-2);font-size:.93rem;margin:0;line-height:1.5}
+.where .sup{color:var(--ink-3)}
+.project ul{margin:0 0 1.1rem;padding-left:1.1rem;color:var(--ink-2);max-width:var(--measure)}
+.project li{margin-bottom:.45rem}
+.project li::marker{color:var(--accent)}
+
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.1rem;padding:0;list-style:none}
+.tags li{
+  font-size:.78rem;color:var(--ink-2);text-align:left;
+  padding:.2rem .6rem;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-3);margin:0;
+}
+
+/* =========================================================
+   RESEARCH AND PROJECTS — titles + space to write + space for images
+   ========================================================= */
+.showcase{padding-bottom:3rem;margin-bottom:3rem;border-bottom:1px solid var(--rule-soft)}
+.showcase:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+.showcase h3{
+  font-family:var(--serif);font-weight:600;font-size:1.32rem;
+  line-height:1.32;letter-spacing:-.008em;
+  margin:0 0 1.1rem;padding-left:.9rem;
+  border-left:3px solid var(--accent);
+}
+.placeholder{
+  color:var(--ink-3);font-style:italic;line-height:1.75;
+  margin:0 0 1.4rem;max-width:var(--measure);
+}
+
+.figs{display:grid;gap:1.1rem;margin:0 0 .2rem;grid-template-columns:1fr}
+@media(min-width:620px){
+  .figs.two{grid-template-columns:1fr 1fr}
+  .figs.three{grid-template-columns:repeat(3,1fr)}
+}
+figure{margin:0}
+figcaption{font-size:.83rem;color:var(--ink-3);line-height:1.55;margin-top:.5rem;text-align:left}
+
+.img-box{
+  position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;
+  background:var(--paper-2);border:1px solid var(--rule);
+}
+.img-box img{width:100%;height:100%;object-fit:cover}
+.img-box.is-empty{
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px dashed var(--rule);background:var(--paper-3);
+}
+.img-box.is-empty img{display:none}
+.img-box.is-empty::after{content:"Add an image here";color:var(--ink-3);font-size:.85rem}
+
 /* =========================================================
    CONTACT + FOOTER
    ========================================================= */
+.mail-item{margin:0 0 1.3rem;max-width:none}
+.mail-label{display:block;font-size:.8rem;color:var(--ink-3);margin-bottom:.2rem}
 .mail{
   font-family:var(--serif);font-weight:400;
-  font-size:clamp(1.3rem,4.2vw,2rem);
-  letter-spacing:-.015em;display:inline-block;margin:0 0 1.6rem;word-break:break-word;
+  font-size:clamp(1.2rem,3.8vw,1.75rem);
+  letter-spacing:-.015em;display:inline-block;word-break:break-word;
+  text-align:left;
 }
-.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.8rem;max-width:none}
 footer{
   border-top:1px solid var(--rule);
   padding:1.6rem 0 3rem;margin-top:1rem;
@@ -235,8 +287,7 @@ footer{
 
 @media print{
   body{background:#fff}
-  .rail nav,.btn,.links,.skip{display:none}
-  .layout{display:block;width:auto}
+  .topbar,.links,.btn,.skip{display:none}
   section + section{border-top:1px solid #ccc}
 }
 </style>
@@ -244,173 +295,299 @@ footer{
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="layout">
+<header class="topbar">
+  <div class="bar">
+    <a class="brand" href="#top">Brayan E. Castiblanco</a>
+    <nav aria-label="Sections">
+      <a href="#top">Home</a>
+      <a href="#cv">My CV</a>
+      <a href="#research">Research and Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<!-- ===================== SIDEBAR ===================== -->
-<aside class="rail">
-  <!-- EDIT: add images/profile.png (square, 600px or larger). Delete this tag for no photo. -->
-  <img class="profile" src="images/profile.png" alt="Brayan Elian Castiblanco"
-       onerror="this.remove()">
-
-  <h1>Brayan Elian Castiblanco</h1>
-  <p class="role">Ultrafast dynamics of quantum materials, and strongly correlated phenomena in solids</p>
-
-  <nav aria-label="Sections">
-    <a href="#top">Home</a>
-    <a href="#cv">My CV</a>
-    <a href="#research">Research and projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <p class="contact">
-    Aarhus, Denmark<br>
-    <a href="mailto:bcastiblancoo@post.au.dk">bcastiblancoo@post.au.dk</a>
-    <!-- EDIT: replace # with your real profiles, or delete the lines you don't use -->
-    <a href="#">Google Scholar</a>
-    <a href="#">ORCID</a>
-    <a href="#">GitHub</a>
-    <a href="#">LinkedIn</a>
-  </p>
-
-  <!-- EDIT: put your PDF at files/CV.pdf -->
-  <a class="btn" href="files/BEC_CV.pdf">Download CV (PDF)</a>
-</aside>
-
-<!-- ===================== MAIN ===================== -->
 <main id="main">
 
 <!-- ========== HOME ========== -->
 <section id="top">
-  <p class="lede"> Hey there! </p>
+  <div class="wrap">
+    <div class="hero-id">
+      <!-- kept as you set it: images/profile.png -->
+      <img class="profile" src="images/profile.png" alt="Brayan Elian Castiblanco" onerror="this.remove()">
+      <div class="id-text">
+        <h1>Brayan Elian Castiblanco</h1>
+        <p class="role">Ultrafast dynamics of quantum materials, and strongly correlated phenomena in solids</p>
+        <p class="place">Aarhus, Denmark</p>
+        <div class="links">
+          <a href="mailto:bcastiblancoo@post.au.dk">Email</a>
+          <!-- EDIT: replace # with your real profiles -->
+          <a href="#">GitHub</a>
+          <a href="#">LinkedIn</a>
+          <a class="btn" href="files/BEC_CV.pdf">Download CV</a>
+        </div>
+      </div>
+    </div>
 
-  I have recently completed the Erasmus Mundus Master in Quantum Technologies and Engineering (QuanTEEM), which took me through Aarhus University in Denmark, RPTU Kaiserslautern
-  in Germany, and Université Bourgogne Europe in France.</p>
-    
-  My research experience spans <strong>ultrafast pump-probe spectroscopy</strong> (and coherent phonon spectroscopy), 
-  </strong>femtosecond lasers</strong>, </strong>ultrafast dynamics in quantum materials</strong>, </strong>quantum many-body theory</strong>, 
-  </strong>phase transitions</strong> in lattices and </strong>frustrated magnetism</strong>, </strong>optical lattices</strong>, and high energy physics.
+    <p class="lede greet">Hey there!</p>
 
-  <p class="lede">I am currently looking for a PhD position in the interplay between condensed matter and light-matter interactions,
-  exploring topics such as: strongly correlated phenomena in solids, ultrafast dynamics in quantum materials, optical lattices and
-  quantum simulators. I am eager to collaborate in cutting-edge research within these fields, contributing to push the boundaries of our 
-  domain in quantum science and its applications to nes technologies.</p>
+    <p class="lede">I have recently completed the Erasmus Mundus Master in Quantum Technologies and
+    Engineering (QuanTEEM), which took me through Aarhus University in Denmark, RPTU Kaiserslautern in
+    Germany, and Université Bourgogne Europe in France.</p>
 
+    <p class="lede">My research experience spans <strong>ultrafast pump–probe spectroscopy</strong> (and
+    coherent phonon spectroscopy), <strong>femtosecond lasers</strong>, <strong>ultrafast dynamics in
+    quantum materials</strong>, <strong>quantum many-body theory</strong>, <strong>phase transitions</strong>
+    in lattices and <strong>frustrated magnetism</strong>, <strong>optical lattices</strong>, and
+    high-energy physics.</p>
 
-  <p class="lede">My research interest in condensed matter was inspired by the emergent phenomena in quantum-many body systems.
-  During my Bachelor's studies in the National University of Colombia, I trained in high-energy physics theory and cosmology,
-  working out a thermal leptogenisis model for heavy neutrinos and QCD axions as candidates to dark matter. But it was during the
-  "2022 Perimeter-SAIFR-IFT Journeys into Theoretical Physics" school I attended at the IFT/ICTP-SAIFR in Sao Paulo, Brazil, that 
-  I changed my research interests to condensed and quantum matter. Although my background has been mainly theoretical, my passion for
-  quantum mechanics and light-matter interaction has led me to engage in the experimental physics.</p>
+    <p class="lede">I am currently looking for a PhD position in the interplay between condensed matter
+    and light-matter interactions, exploring topics such as strongly correlated phenomena in solids,
+    ultrafast dynamics in quantum materials, optical lattices and quantum simulators. I am eager to
+    collaborate in cutting-edge research within these fields, contributing to push the boundaries of our
+    domain in quantum science and its applications to new technologies.</p>
 
+    <p class="lede">My research interest in condensed matter was inspired by the emergent phenomena in
+    quantum many-body systems. During my Bachelor's studies at the National University of Colombia, I
+    trained in high-energy physics theory and cosmology, working out a thermal leptogenesis model for
+    heavy neutrinos and QCD axions as candidates for dark matter. But it was during the "2022
+    Perimeter-SAIFR-IFT Journeys into Theoretical Physics" school, which I attended at IFT/ICTP-SAIFR in
+    São Paulo, Brazil, that I changed my research interests to condensed and quantum matter. Although my
+    background has been mainly theoretical, my passion for quantum mechanics and light–matter interaction
+    has led me to engage with experimental physics.</p>
 
-  <p class="actions">
-    <a class="btn ghost" href="#research">Research and projects</a>
-    <a class="btn ghost" href="mailto:bcastiblancoo@post.au.dk">Get in touch</a>
-  </p>
+    <p class="actions">
+      <a class="btn ghost" href="#research">Research and Projects</a>
+      <a class="btn ghost" href="mailto:bcastiblancoo@post.au.dk">Get in touch</a>
+    </p>
+  </div>
 </section>
 
 <!-- ========== MY CV ========== -->
 <section id="cv">
-  <div class="head">
-    <h2>My CV</h2>
-    <p>The complete document is available as a PDF. The essentials are below.</p>
-  </div>
-
-  <div class="panels split">
-    <div>
-      <div class="panel">
-        <h3>Education</h3>
-
-        <div class="deg">
-          <b>Erasmus Mundus Master in Quantum Technologies and Engineering (QuanTEEM)</b>
-          <em>Aarhus University, Denmark · RPTU Kaiserslautern, Germany · Université Bourgogne Europe, France</em>
-          <small>Sep 2024 – Aug 2026 · MSc thesis 10/12 · GPA 9.1 (Aarhus)</small>
-          <p class="thesis">
-            Ultrafast dynamics and non-linear light-induced phase transitions in tellurium.
-            <!-- EDIT: upload the PDF to files/ and this link works -->
-            <a href="files/msc-thesis.pdf">Read the thesis</a>
-          </p>
-        </div>
-
-        <div class="deg">
-          <b>BSc Physics — National University of Colombia</b>
-          <em>Bogotá, Colombia · Meritorious thesis distinction</em>
-          <small>Feb 2017 – Jun 2022 · GPA 4.2 / 5.0</small>
-          <p class="thesis">
-            Thermal leptogenesis in the type-I Dirac extension to the DFSZ axion model for dark matter.
-            <!-- EDIT: paste the thesis URL -->
-            <a href="#">Read the thesis</a>
-          </p>
-        </div>
-
-        <p class="note">Selected coursework: platforms for quantum technologies, quantum engineering
-          and information, photonic integrated circuits, advanced solid-state physics, quantum optics
-          I and II, atomic and molecular physics.</p>
-      </div>
-
-      <div class="panel">
-        <h3>Teaching and mentoring</h3>
-        <ul class="rows">
-          <li><b>Auxiliary Professor</b> — ECCI University, Bogotá <span class="yr">Jan – Aug 2024</span><br>
-              Undergraduate courses in fundamentals of mathematics, and probability and stochastic processes.</li>
-          <li><b>Project Coordinator and Teaching Assistant</b> — District University Francisco José de Caldas
-              <span class="yr">Feb 2023 – Aug 2024</span><br>
-              Coordinated a 12-member interdisciplinary tutoring team, supporting roughly 15 students per class
-              in electromagnetism, oscillations and waves, and modern physics.</li>
-          <li><b>Teaching Assistant</b> — National University of Colombia <span class="yr">Mar 2021 – Dec 2022</span><br>
-              Special mathematics for physics, electrodynamics, calculus I, fundamentals of mathematics.</li>
-        </ul>
-      </div>
+  <div class="wrap">
+    <div class="head">
+      <h2>My CV</h2>
+      <p>The complete document is available as a PDF. Everything else — education, research experience,
+      teaching, skills and awards — is below.</p>
     </div>
 
-    <div>
-      <div class="panel">
-        <h3>Skills</h3>
-        <dl class="kv">
-          <div><dt>Advanced</dt><dd>Python, MATLAB, Linux, LaTeX</dd></div>
-          <div><dt>Intermediate</dt><dd>Mathematica, EMode Photonix</dd></div>
-          <div><dt>Beginner</dt><dd>Qiskit, Maple, Tidy3D</dd></div>
-          <div><dt>Laboratory</dt><dd>Pump–probe and rotational-anisotropy spectroscopy, UHV and cryogenic systems, free-space non-linear optics</dd></div>
-          <div><dt>Languages</dt><dd>Spanish (native), English (C1), German (A2), Italian (Proeficient, not certified)</dd></div>
-        </dl>
+    <!-- Research experience: the full record, moved here from Research and Projects -->
+    <div class="panel full">
+      <h3>Research experience</h3>
+
+      <article class="project">
+        <header>
+          <p class="when">Jan – Jun 2026</p>
+          <h3>Ultrafast dynamics and light-induced phase transitions in tellurium</h3>
+          <p class="where">Associate Research Student · Ultrafast Dynamics of Quantum Materials Group,
+            Aarhus University <span class="sup">— Supervisor: Prof. Simon Wall</span></p>
+        </header>
+        <ul>
+          <li>Ran table-top pump–probe and rotational-anisotropy spectroscopy in the near-infrared, under
+              ultra-high vacuum and cryogenic conditions.</li>
+          <li>Extracted coherent phonon frequencies, amplitudes and damping rates from linear and non-linear
+              reflectance data by fitting time-domain signals to Raman- and IR-active phonons in a tensor model.</li>
+          <li>Worked with second-harmonic generation and sum- and difference-frequency generation in crystals
+              on free-space optical setups.</li>
+          <li>Applied group-symmetry analysis to the dielectric function and the non-linear susceptibility
+              tensor for arbitrarily oriented crystals, characterising phonon spectra and optical anisotropy.</li>
+        </ul>
+        <ul class="tags">
+          <li>Pump–probe spectroscopy</li><li>Coherent phonons</li><li>Second-harmonic generation</li>
+          <li>Rotational anisotropy</li><li>Cryogenics and UHV</li><li>Tellurium</li>
+        </ul>
+        <p class="links">
+          <a href="files/msc-thesis.pdf">MSc thesis (PDF)</a>
+          <!-- EDIT: paste the repository URL, or delete this link -->
+          <a href="#">Analysis code</a>
+        </p>
+      </article>
+
+      <article class="project">
+        <header>
+          <p class="when">Aug 2025 – Feb 2026</p>
+          <h3>Spin-wave theory for frustrated Heisenberg antiferromagnets</h3>
+          <p class="where">Research Intern · Center for Complex Quantum Systems, Aarhus University
+            <span class="sup">— Supervisor: Prof. Georg Bruun</span></p>
+        </header>
+        <ul>
+          <li>Derived analytic dispersion and magnetisation expressions for nearest- and next-nearest-neighbour
+              Heisenberg antiferromagnets on arbitrary lattice geometries.</li>
+          <li>Studied how frustration drives phase transitions on Heisenberg lattices.</li>
+          <li>Built Python tools for magnon dispersion and regularised Brillouin-zone integration, benchmarking
+              staggered magnetisation against quantum Monte Carlo and series-expansion results.</li>
+        </ul>
+        <ul class="tags">
+          <li>Linear spin-wave theory</li><li>Magnon dispersion</li><li>Frustrated magnetism</li>
+          <li>Brillouin-zone integration</li><li>Python</li>
+        </ul>
+        <p class="links">
+          <!-- EDIT: paste the repository URL from your CV -->
+          <a href="#">Repository</a>
+        </p>
+      </article>
+
+      <article class="project">
+        <header>
+          <p class="when">Feb – Jul 2025</p>
+          <h3>Topological transport and Kerr solitons in photonic lattices</h3>
+          <p class="where">Research Intern · Theoretical Quantum Optics Group, RPTU Kaiserslautern
+            <span class="sup">— Supervisor: Prof. Michael Fleischhauer</span></p>
+        </header>
+        <ul>
+          <li>Simulated band structures and energy evolution in topological transport systems: Thouless
+              pumping, the Aubry–André–Harper model, and non-linear Kerr solitons.</li>
+          <li>Developed a theoretical model reproducing integer transport in one-dimensional arrays of
+              coupled waveguides.</li>
+          <li>Computed Zak phases and Chern numbers to characterise soliton solutions, with numerical tools
+              for soliton dynamics in optical lattice models.</li>
+        </ul>
+        <ul class="tags">
+          <li>Thouless pumping</li><li>Aubry–André–Harper model</li><li>Chern number</li>
+          <li>Zak phase</li><li>Kerr solitons</li><li>Coupled waveguides</li>
+        </ul>
+        <p class="links">
+          <!-- EDIT: paste the repository URL from your CV -->
+          <a href="#">Repository</a>
+        </p>
+      </article>
+
+      <article class="project">
+        <header>
+          <p class="when">Sep 2021 – Aug 2023</p>
+          <h3>QCD axions as dark matter candidates</h3>
+          <p class="where">Research Assistant · Fields and Particles Group, National University of Colombia
+            <span class="sup">— Supervisor: Prof. Carlos Quimbay</span></p>
+        </header>
+        <ul>
+          <li>Investigated QCD axions as dark matter within thermal leptogenesis models, through
+              Peccei–Quinn symmetry breaking in an accelerating universe.</li>
+          <li>Analysed how the cosmological relic abundance depends on baryon density and on neutrino and
+              axion masses.</li>
+        </ul>
+        <ul class="tags">
+          <li>Thermal leptogenesis</li><li>DFSZ axion model</li><li>Relic abundance</li><li>ΛCDM</li>
+        </ul>
+        <p class="links">
+          <!-- EDIT: paste the thesis URL from your CV -->
+          <a href="#">BSc thesis</a>
+        </p>
+      </article>
+
+      <article class="project">
+        <header>
+          <p class="when">Oct 2021 – Feb 2022</p>
+          <h3>Higgs boson reconstruction from ATLAS open data</h3>
+          <p class="where">Project Author · Experimental Particle Physics internship, National University
+            of Colombia <span class="sup">— Supervisor: Prof. Carlos Sandoval Usme</span></p>
+        </header>
+        <ul>
+          <li>Reconstructed Higgs decay into Z-boson pairs from the 13 TeV ATLAS Open Data release, building
+              analysis notebooks in Python with the ROOT framework.</li>
+        </ul>
+        <ul class="tags"><li>ATLAS Open Data</li><li>ROOT</li><li>Python</li></ul>
+        <p class="links">
+          <!-- EDIT: paste the repository URL from your CV -->
+          <a href="#">Repository</a>
+        </p>
+      </article>
+    </div>
+
+    <div class="panels split">
+      <div>
+        <div class="panel">
+          <h3>Education</h3>
+
+          <div class="deg">
+            <b>Erasmus Mundus Master in Quantum Technologies and Engineering (QuanTEEM)</b>
+            <em>Aarhus University, Denmark · RPTU Kaiserslautern, Germany · Université Bourgogne Europe, France</em>
+            <small>Sep 2024 – Aug 2026 · MSc thesis 10/12 · GPA 9.1 (Aarhus)</small>
+            <p class="thesis">
+              Ultrafast dynamics and non-linear light-induced phase transitions in tellurium.
+              <a href="files/msc-thesis.pdf">Read the thesis</a>
+            </p>
+          </div>
+
+          <div class="deg">
+            <b>BSc Physics — National University of Colombia</b>
+            <em>Bogotá, Colombia · Meritorious thesis distinction</em>
+            <small>Feb 2017 – Jun 2022 · GPA 4.2 / 5.0</small>
+            <p class="thesis">
+              Thermal leptogenesis in the type-I Dirac extension to the DFSZ axion model for dark matter.
+              <!-- EDIT: paste the thesis URL -->
+              <a href="#">Read the thesis</a>
+            </p>
+          </div>
+
+          <p class="note">Selected coursework: platforms for quantum technologies, quantum engineering
+            and information, photonic integrated circuits, advanced solid-state physics, quantum optics
+            I and II, atomic and molecular physics.</p>
+        </div>
+
+        <div class="panel">
+          <h3>Teaching and mentoring</h3>
+          <ul class="rows">
+            <li><b>Auxiliary Professor</b> — ECCI University, Bogotá <span class="yr">Jan – Aug 2024</span><br>
+                Undergraduate courses in fundamentals of mathematics, and probability and stochastic processes.</li>
+            <li><b>Project Coordinator and Teaching Assistant</b> — District University Francisco José de Caldas
+                <span class="yr">Feb 2023 – Aug 2024</span><br>
+                Coordinated a 12-member interdisciplinary tutoring team, supporting roughly 15 students per
+                class in electromagnetism, oscillations and waves, and modern physics.</li>
+            <li><b>Teaching Assistant</b> — National University of Colombia <span class="yr">Mar 2021 – Dec 2022</span><br>
+                Special mathematics for physics, electrodynamics, calculus I, fundamentals of mathematics.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="panel">
-        <h3>Schools and conferences</h3>
-        <ul class="rows">
-          <li><b>Quantum Information Science with Light and Matter</b> — DTU Physics and DigiQ, Helsinge
-              <span class="yr">2026</span> · poster
-              <!-- EDIT: e.g. files/poster-dtu-2026.pdf -->
-              <a href="#">Poster</a></li>
-          <li><b>DigiQ Paris Summer School on Quantum Technologies and Simulations</b> — ENS and Sorbonne, Paris
-              <span class="yr">2026</span></li>
-          <li><b>Impurity Problems in Quantum Mixtures</b> — ICTP, Trieste
-              <span class="yr">2026</span> · poster</li>
-          <li><b>Quantum Technology Hackathon</b> — DTU Physics, Copenhagen
-              <span class="yr">2026</span>
-              <!-- EDIT: paste the repository URL -->
-              <a href="#">Repository</a></li>
-          <li><b>Quantum Campus Aarhus Annual Meeting</b> — Aarhus University
-              <span class="yr">2025</span> · poster</li>
-          <li><b>Giambiagi Winter School on Cosmology</b> — ICTP and DF-UBA, Buenos Aires
-              <span class="yr">2023</span> · poster</li>
-          <li><b>Journeys into Theoretical Physics</b> — Perimeter Institute and ICTP-SAIFR, São Paulo
-              <span class="yr">2022</span></li>
-          <li><b>Cosmology in Colombia (CoCo)</b> — National Observatory of Colombia, Bogotá
-              <span class="yr">2022</span> · speaker</li>
-        </ul>
-      </div>
+      <div>
+        <div class="panel">
+          <h3>Skills</h3>
+          <dl class="kv">
+            <div><dt>Advanced</dt><dd>Python, MATLAB, Linux, LaTeX</dd></div>
+            <div><dt>Intermediate</dt><dd>Mathematica, EMode Photonix</dd></div>
+            <div><dt>Beginner</dt><dd>Qiskit, Maple, Tidy3D</dd></div>
+            <div><dt>Laboratory</dt><dd>Pump–probe and rotational-anisotropy spectroscopy, UHV and cryogenic systems, free-space non-linear optics</dd></div>
+            <div><dt>Languages</dt><dd>Spanish (native), English (C1), German (A2), Italian (proficient, not certified)</dd></div>
+          </dl>
+        </div>
 
-      <div class="panel">
-        <h3>Awards and memberships</h3>
-        <ul class="rows">
-          <li><b>Erasmus Mundus QuanTEEM scholarship</b> <span class="yr">2024</span></li>
-          <li><b>DigiQ (EU) Network</b> — Advocates for Quantum Technologies <span class="yr">2025</span></li>
-          <li><b>Meritorious bachelor's thesis</b> — National University of Colombia <span class="yr">2022</span></li>
-          <li><b>Andrés Bello Distinction</b> — top 0.02% nationally in the Colombian university
-              admission exam <span class="yr">2016</span></li>
-        </ul>
+        <div class="panel">
+          <h3>Schools and conferences</h3>
+          <ul class="rows">
+            <li><b>Quantum Information Science with Light and Matter</b> — DTU Physics and DigiQ, Helsinge
+                <span class="yr">2026</span> · poster
+                <!-- EDIT: e.g. files/poster-dtu-2026.pdf -->
+                <a href="#">Poster</a></li>
+            <li><b>DigiQ Paris Summer School on Quantum Technologies and Simulations</b> — ENS and Sorbonne, Paris
+                <span class="yr">2026</span></li>
+            <li><b>Impurity Problems in Quantum Mixtures</b> — ICTP, Trieste
+                <span class="yr">2026</span> · poster</li>
+            <li><b>Quantum Technology Hackathon</b> — DTU Physics, Copenhagen
+                <span class="yr">2026</span>
+                <!-- EDIT: paste the repository URL -->
+                <a href="#">Repository</a></li>
+            <li><b>Quantum Campus Aarhus Annual Meeting</b> — Aarhus University
+                <span class="yr">2025</span> · poster</li>
+            <li><b>Giambiagi Winter School on Cosmology</b> — ICTP and DF-UBA, Buenos Aires
+                <span class="yr">2023</span> · poster</li>
+            <li><b>Journeys into Theoretical Physics</b> — Perimeter Institute and ICTP-SAIFR, São Paulo
+                <span class="yr">2022</span></li>
+            <li><b>Cosmology in Colombia (CoCo)</b> — National Observatory of Colombia, Bogotá
+                <span class="yr">2022</span> · speaker</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Awards and memberships</h3>
+          <ul class="rows">
+            <li><b>Erasmus Mundus QuanTEEM scholarship</b> <span class="yr">2024</span></li>
+            <li><b>DigiQ (EU) Network</b> — Advocates for Quantum Technologies <span class="yr">2025</span></li>
+            <li><b>Meritorious bachelor's thesis</b> — National University of Colombia <span class="yr">2022</span></li>
+            <li><b>Andrés Bello Distinction</b> — top 0.02% nationally in the Colombian university
+                admission exam <span class="yr">2016</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -418,227 +595,170 @@ footer{
 
 <!-- ========== RESEARCH AND PROJECTS ========== -->
 <section id="research">
-  <div class="head">
-    <h2>Research experience and projects</h2>
-    <p>Experimental ultrafast optics, quantum many-body theory, topological photonics and particle
-    cosmology — most recent first.</p>
-  </div>
+  <div class="wrap">
+    <div class="head">
+      <h2>Research and Projects</h2>
+      <p>The dates, roles and supervisors are in the CV. This is the space to tell each project's story
+      properly — the motivation, the approach, the result — with figures.</p>
+    </div>
 
-  <!-- ···················································································
-       TEMPLATE — copy this whole <article> block to add a new project.
-       Figures: use class "figs" for one, "figs two" for two, "figs three" for three.
-       A figure whose image file is missing removes itself, so nothing looks broken.
+    <!-- ···················································································
+         TEMPLATE — copy this whole <article> to add a project. "figs" holds one image,
+         "figs two" holds two side by side, "figs three" holds three. An image slot shows
+         a dashed placeholder until you point its <img src> at a real file.
 
-  <article class="project">
-    <header>
-      <p class="when">Month Year – Month Year</p>
+    <article class="showcase">
       <h3>Project title</h3>
-      <p class="where">Role · Group, Institution <span class="sup">— Supervisor: Prof. Name</span></p>
-    </header>
-    <ul>
-      <li>What you did, and what came out of it.</li>
-    </ul>
-    <ul class="tags"><li>Method</li><li>Technique</li></ul>
-    <div class="figs two">
-      <figure>
-        <img src="images/figure.png" alt="Plain description for screen readers"
-             onerror="this.closest('figure').remove()">
-        <figcaption>One or two sentences on what the figure shows.</figcaption>
-      </figure>
-    </div>
-    <p class="links">
-      <a href="#">Repository</a><a href="#">Report (PDF)</a><a href="#">Poster</a>
-    </p>
-  </article>
-  ··················································································· -->
+      <p class="placeholder">Write about this project here: what the question was, how you approached
+        it, and what you found. Replace this paragraph with your own text.</p>
+      <div class="figs two">
+        <figure>
+          <div class="img-box">
+            <img src="images/your-figure.png" alt="Plain description for screen readers"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>Caption describing what the figure shows.</figcaption>
+        </figure>
+      </div>
+    </article>
+    ··················································································· -->
 
-  <article class="project">
-    <header>
-      <p class="when">Jan – Jun 2026</p>
+    <article class="showcase">
       <h3>Ultrafast dynamics and light-induced phase transitions in tellurium</h3>
-      <p class="where">Associate Research Student · Ultrafast Dynamics of Quantum Materials Group,
-        Aarhus University <span class="sup">— Supervisor: Prof. Simon Wall</span></p>
-    </header>
-    <ul>
-      <li>Ran table-top pump–probe and rotational-anisotropy spectroscopy in the near-infrared, under
-          ultra-high vacuum and cryogenic conditions.</li>
-      <li>Extracted coherent phonon frequencies, amplitudes and damping rates from linear and non-linear
-          reflectance data by fitting time-domain signals to Raman- and IR-active phonons in a tensor model.</li>
-      <li>Worked with second-harmonic generation and sum- and difference-frequency generation in crystals
-          on free-space optical setups.</li>
-      <li>Applied group-symmetry analysis to the dielectric function and the non-linear susceptibility
-          tensor for arbitrarily oriented crystals, characterising phonon spectra and optical anisotropy.</li>
-    </ul>
-    <ul class="tags">
-      <li>Pump–probe spectroscopy</li><li>Coherent phonons</li><li>Second-harmonic generation</li>
-      <li>Rotational anisotropy</li><li>Cryogenics and UHV</li><li>Tellurium</li>
-    </ul>
-    <!-- EDIT: drop your figures into images/ and adjust the captions. Delete any figure you don't have. -->
-    <div class="figs two">
-      <figure>
-        <img src="images/te-phonon-trace.png" alt="Time-domain reflectance showing coherent phonon oscillations"
-             onerror="this.closest('figure').remove()">
-        <figcaption>Time-domain reflectance after photoexcitation, with the coherent phonon oscillation
-          fitted to a damped harmonic model.</figcaption>
-      </figure>
-      <figure>
-        <img src="images/te-anisotropy-polar.png" alt="Polar plot of the rotational-anisotropy second-harmonic signal"
-             onerror="this.closest('figure').remove()">
-        <figcaption>Rotational-anisotropy SHG, showing the symmetry of the non-linear susceptibility tensor.</figcaption>
-      </figure>
-    </div>
-    <p class="links">
-      <a href="files/msc-thesis.pdf">MSc thesis (PDF)</a>
-      <!-- EDIT: paste the repository URL, or delete this link -->
-      <a href="#">Analysis code</a>
-    </p>
-  </article>
+      <p class="placeholder">Write about this project here: what the question was, how you approached
+        it, and what you found. Replace this paragraph with your own text.</p>
+      <div class="figs two">
+        <figure>
+          <div class="img-box">
+            <img src="images/te-phonon-trace.png" alt="Time-domain reflectance showing coherent phonon oscillations"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>Time-domain reflectance after photoexcitation, with the coherent phonon oscillation
+            fitted to a damped harmonic model.</figcaption>
+        </figure>
+        <figure>
+          <div class="img-box">
+            <img src="images/te-anisotropy-polar.png" alt="Polar plot of the rotational-anisotropy second-harmonic signal"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>Rotational-anisotropy SHG, showing the symmetry of the non-linear susceptibility tensor.</figcaption>
+        </figure>
+      </div>
+    </article>
 
-  <article class="project">
-    <header>
-      <p class="when">Aug 2025 – Feb 2026</p>
+    <article class="showcase">
       <h3>Spin-wave theory for frustrated Heisenberg antiferromagnets</h3>
-      <p class="where">Research Intern · Center for Complex Quantum Systems, Aarhus University
-        <span class="sup">— Supervisor: Prof. Georg Bruun</span></p>
-    </header>
-    <ul>
-      <li>Derived analytic dispersion and magnetisation expressions for nearest- and next-nearest-neighbour
-          Heisenberg antiferromagnets on arbitrary lattice geometries.</li>
-      <li>Studied how frustration drives phase transitions on Heisenberg lattices.</li>
-      <li>Built Python tools for magnon dispersion and regularised Brillouin-zone integration, benchmarking
-          staggered magnetisation against quantum Monte Carlo and series-expansion results.</li>
-    </ul>
-    <ul class="tags">
-      <li>Linear spin-wave theory</li><li>Magnon dispersion</li><li>Frustrated magnetism</li>
-      <li>Brillouin-zone integration</li><li>Python</li>
-    </ul>
-    <div class="figs">
-      <figure>
-        <img src="images/magnon-dispersion.png" alt="Magnon dispersion along a high-symmetry path"
-             onerror="this.closest('figure').remove()">
-        <figcaption>Magnon dispersion along the high-symmetry path, with staggered magnetisation
-          benchmarked against quantum Monte Carlo data.</figcaption>
-      </figure>
-    </div>
-    <p class="links">
-      <!-- EDIT: paste the repository URL from your CV -->
-      <a href="#">Repository</a>
-    </p>
-  </article>
+      <p class="placeholder">Write about this project here: what the question was, how you approached
+        it, and what you found. Replace this paragraph with your own text.</p>
+      <div class="figs">
+        <figure>
+          <div class="img-box">
+            <img src="images/magnon-dispersion.png" alt="Magnon dispersion along a high-symmetry path"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>Magnon dispersion along the high-symmetry path, with staggered magnetisation
+            benchmarked against quantum Monte Carlo data.</figcaption>
+        </figure>
+      </div>
+    </article>
 
-  <article class="project">
-    <header>
-      <p class="when">Feb – Jul 2025</p>
+    <article class="showcase">
       <h3>Topological transport and Kerr solitons in photonic lattices</h3>
-      <p class="where">Research Intern · Theoretical Quantum Optics Group, RPTU Kaiserslautern
-        <span class="sup">— Supervisor: Prof. Michael Fleischhauer</span></p>
-    </header>
-    <ul>
-      <li>Simulated band structures and energy evolution in topological transport systems: Thouless pumping,
-          the Aubry–André–Harper model, and non-linear Kerr solitons.</li>
-      <li>Developed a theoretical model reproducing integer transport in one-dimensional arrays of coupled
-          waveguides.</li>
-      <li>Computed Zak phases and Chern numbers to characterise soliton solutions, with numerical tools for
-          soliton dynamics in optical lattice models.</li>
-    </ul>
-    <ul class="tags">
-      <li>Thouless pumping</li><li>Aubry–André–Harper model</li><li>Chern number</li>
-      <li>Zak phase</li><li>Kerr solitons</li><li>Coupled waveguides</li>
-    </ul>
-    <div class="figs two">
-      <figure>
-        <img src="images/thouless-pump.png" alt="Centre-of-mass displacement over one adiabatic pump cycle"
-             onerror="this.closest('figure').remove()">
-        <figcaption>Quantised centre-of-mass displacement over one adiabatic pump cycle.</figcaption>
-      </figure>
-      <figure>
-        <img src="images/aah-bands.png" alt="Band structure of the Aubry-Andre-Harper model"
-             onerror="this.closest('figure').remove()">
-        <figcaption>Band structure of the Aubry–André–Harper model, coloured by Chern number.</figcaption>
-      </figure>
-    </div>
-    <p class="links">
-      <!-- EDIT: paste the repository URL from your CV -->
-      <a href="#">Repository</a>
-    </p>
-  </article>
+      <p class="placeholder">Write about this project here: what the question was, how you approached
+        it, and what you found. Replace this paragraph with your own text.</p>
+      <div class="figs two">
+        <figure>
+          <div class="img-box">
+            <img src="images/thouless-pump.png" alt="Centre-of-mass displacement over one adiabatic pump cycle"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>Quantised centre-of-mass displacement over one adiabatic pump cycle.</figcaption>
+        </figure>
+        <figure>
+          <div class="img-box">
+            <img src="images/aah-bands.png" alt="Band structure of the Aubry-Andre-Harper model"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>Band structure of the Aubry–André–Harper model, coloured by Chern number.</figcaption>
+        </figure>
+      </div>
+    </article>
 
-  <article class="project">
-    <header>
-      <p class="when">Sep 2021 – Aug 2023</p>
+    <article class="showcase">
       <h3>QCD axions as dark matter candidates</h3>
-      <p class="where">Research Assistant · Fields and Particles Group, National University of Colombia
-        <span class="sup">— Supervisor: Prof. Carlos Quimbay</span></p>
-    </header>
-    <ul>
-      <li>Investigated QCD axions as dark matter within thermal leptogenesis models, through Peccei–Quinn
-          symmetry breaking in an accelerating universe.</li>
-      <li>Analysed how the cosmological relic abundance depends on baryon density and on neutrino and
-          axion masses.</li>
-    </ul>
-    <ul class="tags">
-      <li>Thermal leptogenesis</li><li>DFSZ axion model</li><li>Relic abundance</li><li>ΛCDM</li>
-    </ul>
-    <p class="links">
-      <!-- EDIT: paste the thesis URL from your CV -->
-      <a href="#">BSc thesis</a>
-    </p>
-  </article>
+      <p class="placeholder">Write about this project here: what the question was, how you approached
+        it, and what you found. Replace this paragraph with your own text.</p>
+      <div class="figs">
+        <figure>
+          <div class="img-box">
+            <img src="images/axion-relic-abundance.png" alt="Relic abundance as a function of axion mass"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>One or two sentences on what the figure shows.</figcaption>
+        </figure>
+      </div>
+    </article>
 
-  <article class="project">
-    <header>
-      <p class="when">Oct 2021 – Feb 2022</p>
+    <article class="showcase">
       <h3>Higgs boson reconstruction from ATLAS open data</h3>
-      <p class="where">Project Author · Experimental Particle Physics internship, National University of Colombia
-        <span class="sup">— Supervisor: Prof. Carlos Sandoval Usme</span></p>
-    </header>
-    <ul>
-      <li>Reconstructed Higgs decay into Z-boson pairs from the 13 TeV ATLAS Open Data release, building
-          analysis notebooks in Python with the ROOT framework.</li>
-    </ul>
-    <ul class="tags"><li>ATLAS Open Data</li><li>ROOT</li><li>Python</li></ul>
-    <p class="links">
-      <!-- EDIT: paste the repository URL from your CV -->
-      <a href="#">Repository</a>
-    </p>
-  </article>
+      <p class="placeholder">Write about this project here: what the question was, how you approached
+        it, and what you found. Replace this paragraph with your own text.</p>
+      <div class="figs">
+        <figure>
+          <div class="img-box">
+            <img src="images/higgs-mass-peak.png" alt="Reconstructed four-lepton invariant mass spectrum"
+                 onerror="this.closest('.img-box').classList.add('is-empty')">
+          </div>
+          <figcaption>One or two sentences on what the figure shows.</figcaption>
+        </figure>
+      </div>
+    </article>
+  </div>
 </section>
 
 <!-- ========== CONTACT ========== -->
 <section id="contact">
-  <div class="head">
-    <h2>Contact</h2>
-    <p>I am applying for PhD positions in quantum many-body physics, strongly correlated systems and
-    quantum technologies, and I am glad to hear from prospective supervisors and collaborators.</p>
+  <div class="wrap">
+    <div class="head">
+      <h2>Contact</h2>
+      <p>I am applying for PhD positions in quantum many-body physics, strongly correlated systems and
+      quantum technologies, and I am glad to hear from prospective supervisors and collaborators.</p>
+    </div>
+
+    <div class="mail-item">
+      <span class="mail-label">University email</span>
+      <a class="mail" href="mailto:bcastiblancoo@post.au.dk">bcastiblancoo@post.au.dk</a>
+    </div>
+    <div class="mail-item">
+      <span class="mail-label">Personal email</span>
+      <a class="mail" href="mailto:becastiblanco@gmail.com">becastiblanco@gmail.com</a>
+    </div>
+
+    <p class="links" style="margin:.4rem 0 1.6rem">
+      <a href="files/BEC_CV.pdf">CV (PDF)</a>
+      <!-- EDIT: replace # with your real profiles, delete what you don't use -->
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+    </p>
+
+    <p class="note" style="margin-top:0">Based in Aarhus, Denmark. Available to relocate.</p>
   </div>
-
-  <a class="mail" href="mailto:bcastiblancoo@post.au.dk">bcastiblancoo@post.au.dk</a>
-
-  <p class="links" style="margin-bottom:1.6rem">
-    <a href="files/BEC_CV.pdf">CV (PDF)</a>
-    <!-- EDIT: replace # with your real profiles, delete what you don't use -->
-    <a href="#">Google Scholar</a>
-    <a href="#">ORCID</a>
-    <a href="#">GitHub</a>
-    <a href="#">LinkedIn</a>
-  </p>
-
-  <p class="note" style="margin-top:0">Based in Aarhus, Denmark. Available to relocate.</p>
 </section>
 
 <footer>
-  <span>© 2026 Brayan Elian Castiblanco</span>
-  <span>Last updated September 2026</span>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:space-between;width:100%">
+    <span>© 2026 Brayan Elian Castiblanco</span>
+    <span>Last updated September 2026</span>
+  </div>
 </footer>
 
 </main>
-</div>
 
 <script>
-// Mark the section currently in view in the sidebar navigation.
+// Mark the section currently in view in the top navigation.
 (function () {
   var links = {};
-  document.querySelectorAll('.rail nav a').forEach(function (a) {
+  document.querySelectorAll('.topbar nav a').forEach(function (a) {
     links[a.getAttribute('href').slice(1)] = a;
   });
   var io = new IntersectionObserver(function (entries) {
@@ -647,7 +767,7 @@ footer{
       Object.keys(links).forEach(function (k) { links[k].removeAttribute('aria-current'); });
       if (links[e.target.id]) links[e.target.id].setAttribute('aria-current', 'true');
     });
-  }, { rootMargin: '-25% 0px -60% 0px' });
+  }, { rootMargin: '-35% 0px -55% 0px' });
   document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
 })();
 </script>
